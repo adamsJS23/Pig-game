@@ -43,3 +43,13 @@ btnRoll.addEventListener('click', function () {
   document.getElementById(`current--${activePlayer}`).textContent =
     currentScore;
 });
+
+// Handling hold functionality
+btnHold.addEventListener('click', function () {
+  let currentTotal = +document.getElementById(`score--${activePlayer}`)
+    .textContent;
+
+  document.getElementById(`score--${activePlayer}`).textContent =
+    +document.getElementById(`current--${activePlayer}`).textContent +
+    currentTotal;
+});
