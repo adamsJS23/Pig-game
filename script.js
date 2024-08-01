@@ -17,23 +17,29 @@ diceEl.classList.add('hidden');
 console.log(score0El, score1El);
 
 let currentScore = 0;
-
+let activePlayer = 0;
 // Handling event rolling dice functionality
 
 btnRoll.addEventListener('click', function () {
   // rolling dice
   const diceNumber = Math.trunc(Math.random() * 6 + 1);
-  console.log(diceNumber);
 
   // Display dice image
   diceEl.classList.remove('hidden');
   diceEl.src = `dice-${diceNumber}.png`;
-  console.log(diceEl);
 
   if (diceNumber !== 1) {
-    currentScore += diceNumber;
-    current0El.textContent = currentScore;
+    // currentScore += diceNumber;
+    // document.getElementById(`current--${activePlayer}`).textContent =
+    //   currentScore;
   } else {
-    
+    // switch to the next player
+    currentScore = 0;
+    if (activePlayer === 0) activePlayer = 1;
+    else if (activePlayer === 1) activePlayer = 0;
   }
+  console.log('active player', activePlayer);
+  currentScore += diceNumber;
+  document.getElementById(`current--${activePlayer}`).textContent =
+    currentScore;
 });
