@@ -34,10 +34,11 @@ btnRoll.addEventListener('click', function () {
     document.getElementById(`current--${activePlayer}`).textContent = score;
   } else {
     // switch to the next player
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
-    if (activePlayer === 0) activePlayer = 1;
-    else if (activePlayer === 1) activePlayer = 0;
     score = 0;
+    document.querySelector(`.player--${activePlayer}`).classList.remove('player--active')
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    document.querySelector(`.player--${activePlayer}`).classList.add('player--active')
   }
 });
 
@@ -54,18 +55,16 @@ btnHold.addEventListener('click', function () {
   if (total >= 100) {
     console.log(`Player ${activePlayer + 1} wins the game`);
   } else {
+    // switch to the next player
+
     score = 0;
     document.getElementById(`current--${activePlayer}`).textContent = 0;
-    if (activePlayer === 0) activePlayer = 1;
-    else if (activePlayer === 1) activePlayer = 0;
-    console.log(score);
+    activePlayer = activePlayer === 0 ? 1 : 0;
   }
-
-  // switch to the next player
 });
 
 // Handling reset game
-btnNew.addEventListener('click',function(){
+btnNew.addEventListener('click', function () {
   // reset scores
   document.getElementById(`current--0`).textContent = 0;
   document.getElementById(`score--0`).textContent = 0;
@@ -73,6 +72,6 @@ btnNew.addEventListener('click',function(){
   document.getElementById(`score--1`).textContent = 0;
   // Hide dice image
   diceEl.classList.add('hidden');
-  score=0
-  activePlayer=0
-})
+  score = 0;
+  activePlayer = 0;
+});
