@@ -65,4 +65,14 @@ btnHold.addEventListener('click', function () {
 });
 
 // Handling reset game
-
+btnNew.addEventListener('click',function(){
+  // reset scores
+  document.getElementById(`current--0`).textContent = 0;
+  document.getElementById(`score--0`).textContent = 0;
+  document.getElementById(`current--1`).textContent = 0;
+  document.getElementById(`score--1`).textContent = 0;
+  // Hide dice image
+  diceEl.classList.add('hidden');
+  score=0
+  activePlayer=0
+})
