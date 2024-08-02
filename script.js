@@ -16,11 +16,12 @@ score1El.textContent = 0;
 diceEl.classList.add('hidden');
 console.log(score0El, score1El);
 
-let currentScore = 0;
+let score = 0;
 let activePlayer = 0;
 // Handling event rolling dice functionality
 
 btnRoll.addEventListener('click', function () {
+  console.log('Who is playing', activePlayer + 1);
   // rolling dice
   const diceNumber = Math.trunc(Math.random() * 6 + 1);
 
@@ -29,27 +30,39 @@ btnRoll.addEventListener('click', function () {
   diceEl.src = `dice-${diceNumber}.png`;
 
   if (diceNumber !== 1) {
-    // currentScore += diceNumber;
-    // document.getElementById(`current--${activePlayer}`).textContent =
-    //   currentScore;
+    score += diceNumber;
+    document.getElementById(`current--${activePlayer}`).textContent = score;
   } else {
     // switch to the next player
-    currentScore = 0;
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
     if (activePlayer === 0) activePlayer = 1;
     else if (activePlayer === 1) activePlayer = 0;
+    score = 0;
   }
-  console.log('active player', activePlayer);
-  currentScore += diceNumber;
-  document.getElementById(`current--${activePlayer}`).textContent =
-    currentScore;
 });
 
 // Handling hold functionality
 btnHold.addEventListener('click', function () {
-  let currentTotal = +document.getElementById(`score--${activePlayer}`)
+  let score = +document.getElementById(`score--${activePlayer}`).textContent;
+  let current = +document.getElementById(`current--${activePlayer}`)
     .textContent;
+  let total = current + score;
 
   document.getElementById(`score--${activePlayer}`).textContent =
-    +document.getElementById(`current--${activePlayer}`).textContent +
-    currentTotal;
+    current + score;
+
+  if (total >= 100) {
+    console.log(`Player ${activePlayer + 1} wins the game`);
+  } else {
+    score = 0;
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+    if (activePlayer === 0) activePlayer = 1;
+    else if (activePlayer === 1) activePlayer = 0;
+    console.log(score);
+  }
+
+  // switch to the next player
 });
+
+// Handling reset game
+
