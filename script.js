@@ -18,6 +18,17 @@ console.log(score0El, score1El);
 
 let score = 0;
 let activePlayer = 0;
+function switchPlayer() {
+  score = 0;
+  document
+    .querySelector(`.player--${activePlayer}`)
+    .classList.remove('player--active');
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  document
+    .querySelector(`.player--${activePlayer}`)
+    .classList.add('player--active');
+}
 // Handling event rolling dice functionality
 
 btnRoll.addEventListener('click', function () {
@@ -32,14 +43,9 @@ btnRoll.addEventListener('click', function () {
   if (diceNumber !== 1) {
     score += diceNumber;
     document.getElementById(`current--${activePlayer}`).textContent = score;
-  } else {
-    // switch to the next player
-    score = 0;
-    document.querySelector(`.player--${activePlayer}`).classList.remove('player--active')
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    document.querySelector(`.player--${activePlayer}`).classList.add('player--active')
   }
+  // switch to the next player
+  else switchPlayer();
 });
 
 // Handling hold functionality
@@ -49,18 +55,13 @@ btnHold.addEventListener('click', function () {
     .textContent;
   let total = current + score;
 
-  document.getElementById(`score--${activePlayer}`).textContent =
-    current + score;
+  document.getElementById(`score--${activePlayer}`).textContent = total;
 
   if (total >= 100) {
     console.log(`Player ${activePlayer + 1} wins the game`);
-  } else {
-    // switch to the next player
-
-    score = 0;
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
-    activePlayer = activePlayer === 0 ? 1 : 0;
   }
+  // switch to the next player
+  else switchPlayer();
 });
 
 // Handling reset game
