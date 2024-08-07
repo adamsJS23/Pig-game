@@ -71,7 +71,7 @@ btnHold.addEventListener('click', function () {
 
     document.getElementById(`score--${activePlayer}`).textContent = total;
 
-    if (total >= 10) {
+    if (total >= 100) {
       console.log(`Player ${activePlayer + 1} wins the game`);
       document
         .querySelector(`.player--${activePlayer}`)
